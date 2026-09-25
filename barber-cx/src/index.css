@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --cinza-fundo: #dbdada;
+  --cinza-title: gray;
+  --branco-principal: whitesmoke;
+
+  --azul-hover: #2f5ed3;
+
+  --transition-1ms: .1s;
+  --transition-2ms: .2s;
+  --transition-3ms: .3s;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e1e3e6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9ccd1;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #e1e3e6 transparent;
+}

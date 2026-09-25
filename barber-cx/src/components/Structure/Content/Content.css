@@ -1,0 +1,15 @@
+main.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background: var(--cinza-fundo);
+}
+
+.content{
+    border: 1px solid red;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: auto;
+    padding: 10px;
+}

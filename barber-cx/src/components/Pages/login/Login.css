@@ -1,0 +1,1094 @@
+* {
+  box-sizing: border-box;
+}
+
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 5% 10%,
+      #f2eee8 0%,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 95% 90%,
+      #eeeae4 0%,
+      transparent 28%
+    ),
+    #fafafa;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+/* ==================================================
+   DECORAÇÕES
+================================================== */
+
+.auth-decoration {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.auth-decoration-one {
+  width: 400px;
+  height: 400px;
+
+  top: -230px;
+  left: -120px;
+
+  border: 1px solid #e5e0d9;
+
+  animation:
+    decorationFloat 9s ease-in-out infinite;
+}
+
+.auth-decoration-two {
+  width: 280px;
+  height: 280px;
+
+  right: -120px;
+  bottom: -120px;
+
+  border: 1px solid #e3ded7;
+
+  animation:
+    decorationFloat 11s ease-in-out infinite reverse;
+}
+
+.auth-decoration-three {
+  width: 12px;
+  height: 12px;
+
+  top: 20%;
+  right: 8%;
+
+  background: #b99b6b;
+
+  box-shadow:
+    0 0 0 8px rgba(185, 155, 107, 0.08),
+    0 0 0 16px rgba(185, 155, 107, 0.04);
+
+  animation:
+    pulseDot 3s ease-in-out infinite;
+}
+
+@keyframes decorationFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(20px, -25px, 0);
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+
+/* ==================================================
+   CONTAINER
+================================================== */
+
+.auth-container {
+  width: min(1180px, 100%);
+  min-height: 720px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  position: relative;
+  z-index: 2;
+
+  overflow: hidden;
+
+  border: 1px solid #e4e1dc;
+  border-radius: 25px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 35px 90px rgba(36, 31, 25, 0.1),
+    0 10px 30px rgba(36, 31, 25, 0.05);
+
+  animation:
+    containerEnter 0.8s ease both;
+}
+
+@keyframes containerEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(25px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* ==================================================
+   PAINEL DA BARBEARIA
+================================================== */
+
+.auth-brand-panel {
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  padding: 70px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #292723 0%,
+      #171614 55%,
+      #11100f 100%
+    );
+}
+
+.auth-brand-panel::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  top: -220px;
+  right: -200px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  animation:
+    rotateCircle 25s linear infinite;
+}
+
+.auth-brand-panel::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  bottom: -170px;
+  left: -130px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.05);
+}
+
+@keyframes rotateCircle {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.brand-panel-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.025),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+.brand-content {
+  width: 100%;
+
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ==================================================
+   LOGO
+================================================== */
+
+.barber-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 28px;
+
+  animation:
+    fadeUp 0.7s 0.1s ease both;
+}
+
+.logo-line {
+  width: 35px;
+  height: 1px;
+
+  background: #b99b6b;
+}
+
+.logo-scissors {
+  color: #c5a875;
+
+  font-size: 21px;
+
+  transform: rotate(-15deg);
+
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.barber-logo:hover .logo-scissors {
+  color: #d6bb8c;
+
+  transform:
+    rotate(-5deg)
+    scale(1.08);
+}
+
+
+/* ==================================================
+   TEXTO DO PAINEL
+================================================== */
+
+.brand-small {
+  display: block;
+
+  margin-bottom: 18px;
+
+  color: #b99b6b;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+
+  animation:
+    fadeUp 0.7s 0.2s ease both;
+}
+
+.brand-content h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(43px, 4vw, 62px);
+
+  font-weight: 400;
+
+  line-height: 1.02;
+
+  letter-spacing: -2px;
+
+  animation:
+    fadeUp 0.7s 0.3s ease both;
+}
+
+.brand-content h1 strong {
+  color: #c4a46f;
+
+  font-weight: 400;
+}
+
+.brand-content > p {
+  max-width: 410px;
+
+  margin: 27px 0 0;
+
+  color: #a7a49f;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+  animation:
+    fadeUp 0.7s 0.4s ease both;
+}
+
+
+/* ==================================================
+   FEATURES
+================================================== */
+
+.brand-features {
+  display: flex;
+  flex-direction: column;
+
+  gap: 17px;
+
+  margin-top: 40px;
+}
+
+.brand-feature {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  animation:
+    fadeUp 0.7s ease both;
+}
+
+.brand-feature:nth-child(1) {
+  animation-delay: 0.45s;
+}
+
+.brand-feature:nth-child(2) {
+  animation-delay: 0.52s;
+}
+
+.brand-feature:nth-child(3) {
+  animation-delay: 0.59s;
+}
+
+.feature-number {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border:
+    1px solid
+    rgba(196, 164, 111, 0.3);
+
+  border-radius: 50%;
+
+  color: #c4a46f;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.brand-feature strong,
+.brand-feature div span {
+  display: block;
+}
+
+.brand-feature strong {
+  margin-bottom: 3px;
+
+  color: #e8e5e0;
+
+  font-size: 11px;
+}
+
+.brand-feature div span {
+  color: #77746f;
+
+  font-size: 9px;
+}
+
+
+/* ==================================================
+   RODAPÉ DO PAINEL
+================================================== */
+
+.panel-bottom {
+  position: absolute;
+
+  left: 70px;
+  bottom: 30px;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #65615b;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+/* ==================================================
+   PAINEL DO FORMULÁRIO
+================================================== */
+
+.auth-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 55px 75px;
+
+  background: #ffffff;
+}
+
+.auth-form-wrapper {
+  width: 100%;
+  max-width: 400px;
+
+  opacity: 1;
+
+  transform:
+    translateX(0);
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.auth-form-wrapper.form-transitioning {
+  opacity: 0;
+
+  transform:
+    translateX(18px);
+}
+
+
+/* ==================================================
+   LOGO MOBILE
+================================================== */
+
+.mobile-logo {
+  display: none;
+}
+
+.mobile-logo-icon {
+  width: 37px;
+  height: 37px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: #c2a06a;
+
+  background: #25231f;
+
+  font-size: 17px;
+}
+
+.mobile-logo strong,
+.mobile-logo span {
+  display: block;
+}
+
+.mobile-logo strong {
+  color: #22211f;
+
+  font-size: 12px;
+
+  letter-spacing: 1px;
+}
+
+.mobile-logo span {
+  margin-top: 2px;
+
+  color: #a18c70;
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.form-heading {
+  margin-bottom: 30px;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.form-transitioning .form-heading {
+  transform:
+    translateY(4px);
+}
+
+.form-eyebrow {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #ad8e5e;
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 1.7px;
+}
+
+.form-heading h2 {
+  margin: 0 0 9px;
+
+  color: #20201e;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 31px;
+  font-weight: 500;
+
+  letter-spacing: -1px;
+}
+
+.form-heading p {
+  margin: 0;
+
+  color: #8d8b87;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* ==================================================
+   FORMULÁRIO
+================================================== */
+
+.form-field {
+  margin-bottom: 17px;
+}
+
+.form-field label,
+.password-header label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #45433f;
+
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.input-box {
+  height: 49px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  border: 1px solid #e4e2de;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.input-box:focus-within {
+  border-color: #b99b6b;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(185, 155, 107, 0.08);
+
+  transform:
+    translateY(-1px);
+}
+
+.input-symbol {
+  width: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #aaa7a1;
+
+  font-size: 11px;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.input-box:focus-within .input-symbol {
+  color: #ad8e5e;
+
+  transform:
+    scale(1.05);
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+
+  padding: 0 15px 0 0;
+
+  border: 0;
+  outline: 0;
+
+  color: #292824;
+
+  background: transparent;
+
+  font-size: 12px;
+}
+
+.input-box input::placeholder {
+  color: #b6b3ae;
+}
+
+
+/* ==================================================
+   SENHA
+================================================== */
+
+.password-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-header label {
+  margin-bottom: 8px;
+}
+
+.forgot-button {
+  padding: 0;
+
+  border: 0;
+
+  color: #ad8e5e;
+
+  background: transparent;
+
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+.password-button {
+  position: absolute;
+
+  right: 12px;
+
+  width: 25px;
+  height: 25px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border: 0;
+
+  color: #a18c70;
+
+  background: transparent;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.password-button:hover {
+  color: #806640;
+
+  transform:
+    scale(1.08);
+}
+
+
+/* ==================================================
+   CHECKBOX
+================================================== */
+
+.check-option {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  margin: 3px 0 20px;
+
+  color: #85827d;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+  cursor: pointer;
+}
+
+.check-option input {
+  width: 13px;
+  height: 13px;
+
+  margin: 0;
+
+  flex-shrink: 0;
+
+  accent-color: #ad8e5e;
+
+  cursor: pointer;
+}
+
+
+/* ==================================================
+   BOTÃO PRINCIPAL
+================================================== */
+
+.submit-button {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 13px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      100deg,
+      #292723,
+      #161513
+    );
+
+  box-shadow:
+    0 12px 25px
+    rgba(25, 23, 20, 0.14);
+
+  font-size: 11px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.submit-button svg {
+  color: #c4a46f;
+
+  font-size: 12px;
+
+  transition:
+    transform 0.25s ease;
+}
+
+.submit-button:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 16px 30px
+    rgba(25, 23, 20, 0.2);
+}
+
+.submit-button:hover svg {
+  transform:
+    translateX(4px);
+}
+
+
+/* ==================================================
+   TROCA LOGIN / CADASTRO
+================================================== */
+
+.switch-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 24px;
+
+  color: #8e8b86;
+
+  font-size: 10px;
+}
+
+.switch-auth button {
+  padding: 0;
+
+  border: 0;
+
+  color: #ad8e5e;
+
+  background: transparent;
+
+  font-size: 10px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.switch-auth button:hover {
+  text-decoration: underline;
+}
+
+.switch-auth button:disabled {
+  opacity: 0.5;
+
+  cursor: default;
+}
+
+
+/* ==================================================
+   SEGURANÇA
+================================================== */
+
+.auth-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 27px;
+
+  color: #aaa7a1;
+
+  font-size: 8px;
+}
+
+.auth-security svg {
+  color: #ad8e5e;
+
+  font-size: 9px;
+}
+
+
+/* ==================================================
+   ANIMAÇÃO DOS CAMPOS
+================================================== */
+
+.field-animation {
+  animation:
+    fieldEnter 0.35s ease both;
+}
+
+@keyframes fieldEnter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* ==================================================
+   ANIMAÇÃO GERAL
+================================================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* ==================================================
+   RESPONSIVO
+================================================== */
+
+@media (max-width: 950px) {
+  .auth-page {
+    padding: 20px;
+  }
+
+  .auth-container {
+    grid-template-columns:
+      0.85fr 1fr;
+  }
+
+  .auth-brand-panel {
+    padding: 50px;
+  }
+
+  .auth-form-panel {
+    padding: 45px;
+  }
+
+  .panel-bottom {
+    left: 50px;
+  }
+}
+
+
+@media (max-width: 780px) {
+  .auth-page {
+    padding: 0;
+  }
+
+  .auth-container {
+    width: 100%;
+    min-height: 100vh;
+
+    grid-template-columns: 1fr;
+
+    border: 0;
+
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+  .auth-brand-panel {
+    display: none;
+  }
+
+  .auth-form-panel {
+    min-height: 100vh;
+
+    padding: 35px 25px;
+  }
+
+  .mobile-logo {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 45px;
+  }
+
+  .auth-form-wrapper {
+    max-width: 400px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .auth-form-panel {
+    padding: 30px 20px;
+  }
+
+  .form-heading h2 {
+    font-size: 28px;
+  }
+}
+
+
+/* ==================================================
+   REDUÇÃO DE MOVIMENTO
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}
