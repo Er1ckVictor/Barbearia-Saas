@@ -1,13 +1,14 @@
 // Css
-import Sidebar from "../Sidebar/Sidebar"
 import "./Content.css"
+
+import Sidebar from "../Sidebar/Sidebar"
 
 export default function Content({ children }) {
 
     return (
         <main className="container">
+            {children}
             <Sidebar />
-            <div className="content">{children}</div>
         </main>
     )
 

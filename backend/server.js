@@ -1,14 +1,18 @@
 // Import's
 import express from "express";
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
+import { authRoutes } from "./routes/auth/auth.routes.js";
+import { authRateLimit } from "./middlewares/api/rateLimit.js";
 
 // .ENV
 dotenv.config({
     quiet: true
 })
 
-const app = express()
+const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 // === ROTAS DE API ===
 app.get("/", (req, res) => {
@@ -19,6 +23,10 @@ app.get("/", (req, res) => {
     })
 
 })
+
+// === Autenticação ===
+app.use("/user", authRoutes)
+
 
 // Inicialização
 app.listen(3000, () => {
