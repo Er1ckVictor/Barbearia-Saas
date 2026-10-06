@@ -1,0 +1,182 @@
+/* Página Minha conta. Os campos e botões base (auth-*) vêm do Login.css */
+
+.conta {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 22px 150px; /* espaço extra embaixo para a Sidebar flutuante */
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0a0a0a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.conta-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3f3f46;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.conta-voltar:hover {
+  background: #f4f4f5;
+  color: #0a0a0a;
+}
+
+.conta-estado {
+  padding: 60px 0;
+  text-align: center;
+  font-size: 15px;
+  color: #71717a;
+}
+
+.conta-topo {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.conta-avatar {
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #0a0a0a;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.conta-topo h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.conta-topo p {
+  margin-top: 4px;
+  font-size: 14.5px;
+  color: #71717a;
+  overflow-wrap: anywhere;
+}
+
+.conta-cartao {
+  margin-bottom: 20px;
+  padding: 28px 28px 26px;
+  background: #ffffff;
+  border: 1px solid #e7e7ea;
+  border-radius: 22px;
+  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.04), 0 12px 32px rgba(10, 10, 10, 0.05);
+}
+
+.conta-cartao h2 {
+  font-size: 19px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.conta-desc {
+  margin: 6px 0 22px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #71717a;
+}
+
+.conta-linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+/* Campo somente leitura */
+.auth-input.bloqueado {
+  background: #f4f4f5;
+}
+
+.auth-input.bloqueado input {
+  color: #71717a;
+  cursor: not-allowed;
+}
+
+.conta-botao {
+  width: auto;
+  min-width: 180px;
+}
+
+/* Mensagem de sucesso, no mesmo formato do auth-erro, em tons neutros */
+.conta-ok {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border: 1px solid #0a0a0a;
+  background: #f4f4f5;
+  color: #0a0a0a;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.conta-ok svg {
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.conta-sair {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 13px 22px;
+  border: 1px solid #e7e7ea;
+  background: #ffffff;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #3f3f46;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.conta-sair:hover {
+  border-color: #b91c1c;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+@media (max-width: 600px) {
+  .conta {
+    padding: 18px 14px 150px;
+  }
+
+  .conta-cartao {
+    padding: 22px 18px 20px;
+    border-radius: 18px;
+  }
+
+  .conta-linha {
+    grid-template-columns: 1fr;
+  }
+
+  .conta-topo h1 {
+    font-size: 22px;
+  }
+
+  .conta-botao {
+    width: 100%;
+  }
+}

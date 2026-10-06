@@ -1,0 +1,63 @@
+/* Estilos específicos do cadastro. A base (auth-*) vem do Login.css */
+
+.register-linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+/* Indicador de força da senha */
+.forca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.forca-barras {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.forca-barras span {
+  height: 4px;
+  border-radius: 999px;
+  background: #e4e4e7;
+  transition: background 0.2s;
+}
+
+.forca-barras span.cheia {
+  background: #0a0a0a;
+}
+
+.forca-texto {
+  font-size: 12px;
+  font-weight: 600;
+  color: #71717a;
+  white-space: nowrap;
+}
+
+/* Tela de sucesso */
+.register-sucesso {
+  text-align: center;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.register-sucesso svg {
+  font-size: 52px;
+  color: #0a0a0a;
+  margin-bottom: 18px;
+}
+
+.register-sucesso .auth-sub {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .register-linha {
+    grid-template-columns: 1fr;
+  }
+}

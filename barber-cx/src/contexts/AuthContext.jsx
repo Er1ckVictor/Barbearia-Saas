@@ -10,15 +10,19 @@ export function AuthProvider({ children }) {
 
     // States
     const [authenticated, setAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // Verifica a sessão e carrega os dados do usuário
     async function checkAuth() {
 
         try {
-            await api.get("/user/check/token")
+            const { data } = await api.get("/user/check/token")
+            setUser(data.user ?? null);
             setAuthenticated(true);
         }
         catch (error) {
+            setUser(null);
             setAuthenticated(false);
         }
         finally {
@@ -26,8 +30,19 @@ export function AuthProvider({ children }) {
         }
     }
 
-    function logout() {
-        setAuthenticated(false);
+    // Encerra a sessão no backend e limpa o estado local
+    async function logout() {
+
+        try {
+            await api.post("/user/logout")
+        }
+        catch (error) {
+            console.error("Erro ao encerrar sessão:", error)
+        }
+        finally {
+            setUser(null);
+            setAuthenticated(false);
+        }
     }
 
     useEffect(() => {
@@ -40,6 +55,7 @@ export function AuthProvider({ children }) {
         <AuthContext.Provider
             value={{
                 authenticated,
+                user,
                 loading,
                 checkAuth,
                 logout

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FiSearch,
   FiCalendar,
@@ -34,7 +35,8 @@ import {
   FaCamera,
   FaGraduationCap,
 } from "react-icons/fa6";
-import Sidebar from "../../Structure/Sidebar/Sidebar";
+import { useAuth } from "../../../contexts/AuthContext";
+import UserMenu from "../../Structure/UserMenu/UserMenu";
 import "./Home.css";
 
 // Nome provisório do SaaS, altere aqui quando definir o definitivo
@@ -110,10 +112,12 @@ function CardCategoria({ categoria, ativo, aoSelecionar }) {
 }
 
 export default function Home() {
+  const navigate = useNavigate();
+  const { authenticated, loading } = useAuth();
+
   const [busca, setBusca] = useState("");
   const [grupoAtivo, setGrupoAtivo] = useState("todas");
   const [categoriaAtiva, setCategoriaAtiva] = useState(null);
-  const [rotaAtiva, setRotaAtiva] = useState("inicio");
 
   // Categoria selecionada, usada para mostrar o filtro ativo na busca
   const categoriaSelecionada = CATEGORIAS.find((c) => c.id === categoriaAtiva);
@@ -155,9 +159,16 @@ export default function Home() {
           <button type="button" className="topo-link">
             Para profissionais
           </button>
-          <button type="button" className="botao-escuro">
-            Entrar
-          </button>
+
+          {/* Perfil quando logado, botão de entrar quando deslogado (nada enquanto verifica a sessão) */}
+          {!loading &&
+            (authenticated ? (
+              <UserMenu />
+            ) : (
+              <button type="button" className="botao-escuro" onClick={() => navigate("/login")}>
+                Entrar
+              </button>
+            ))}
         </div>
       </header>
 
@@ -276,8 +287,6 @@ export default function Home() {
       <footer className="rodape">
         © 2026 {NOME_MARCA}. Todos os direitos reservados.
       </footer>
-
-      <Sidebar ativo={rotaAtiva} aoNavegar={setRotaAtiva} />
     </div>
   );
 }

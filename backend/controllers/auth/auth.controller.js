@@ -6,19 +6,11 @@ import {
     clearSessionCookies,
     setSessionCookies
 } from "../../middlewares/api/cookies.js";
-import { logTime } from "../../middlewares/api/logs.js";
 
 
-// Login do usuário
+// Login do usuário (por email ou telefone)
 export async function controller_usuarioLogin(req, res) {
     try {
-
-        const dataFunction = {
-            name: "controller_usuarioLogin"
-        }
-
-        // Dados recebidos
-        const { email, password, remember } = req.body;
 
         // Valida body
         if (!req.body) {
@@ -29,8 +21,16 @@ export async function controller_usuarioLogin(req, res) {
             });
         }
 
+        // Dados recebidos
+        const { email, phone, password, remember } = req.body;
+
         // Valida campos
-        if (!email || !password || typeof remember !== "boolean") {
+        if (
+            (!email && !phone) ||
+            typeof password !== "string" ||
+            !password ||
+            typeof remember !== "boolean"
+        ) {
             clearSessionCookies(res);
 
             return res.status(400).json({
@@ -40,12 +40,79 @@ export async function controller_usuarioLogin(req, res) {
             });
         }
 
+        // Email que será usado na autenticação
+        let loginEmail = null;
+
+        if (email) {
+
+            if (typeof email !== "string") {
+                clearSessionCookies(res);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Parâmetros obrigatórios ausentes",
+                    code: "PARAMETERS_REQUIRED"
+                });
+            }
+
+            loginEmail = email.trim().toLowerCase();
+
+        } else {
+
+            // Login por telefone: busca o email na tabela users
+            const cleanPhone = String(phone).replace(/\D/g, "");
+
+            if (cleanPhone.length < 10 || cleanPhone.length > 11) {
+                clearSessionCookies(res);
+
+                return res.status(401).json({
+                    success: false,
+                    message: "Email ou senha inválidos",
+                    code: "INVALID_CREDENTIALS"
+                });
+            }
+
+            const {
+                data: phoneUser,
+                error: phoneError
+            } = await supabaseAdmin
+                .from("users")
+                .select("email")
+                .eq("phone", cleanPhone)
+                .maybeSingle();
+
+            if (phoneError) {
+                console.error(phoneError);
+
+                clearSessionCookies(res);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Erro ao consultar usuário",
+                    code: "USER_DATABASE_ERROR"
+                });
+            }
+
+            // Mesma resposta de credenciais inválidas para não revelar se o telefone existe
+            if (!phoneUser?.email) {
+                clearSessionCookies(res);
+
+                return res.status(401).json({
+                    success: false,
+                    message: "Email ou senha inválidos",
+                    code: "INVALID_CREDENTIALS"
+                });
+            }
+
+            loginEmail = phoneUser.email;
+        }
+
         // Autentica usuário
         const {
             data,
             error
         } = await supabaseClient.auth.signInWithPassword({
-            email,
+            email: loginEmail,
             password
         });
 

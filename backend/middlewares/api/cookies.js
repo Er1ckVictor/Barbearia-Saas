@@ -1,51 +1,72 @@
-// Limpa cookies de sessão
-export function clearSessionCookies(res) {
-    const paramCookie = {
+// Duração padrão da sessão "lembrar de mim"
+const REMEMBER_DURATION = 5 * 24 * 60 * 60 * 1000;
+
+// O refresh token vai em todas as rotas /user, assim qualquer rota protegida consegue renovar a sessão
+const REFRESH_COOKIE_PATH = "/user";
+
+// Caminho usado antes desta versão, mantido só para limpar cookies antigos do navegador
+const LEGACY_REFRESH_COOKIE_PATH = "/user/check/token";
+
+// Opções comuns dos cookies
+function baseOptions() {
+
+    return {
         httpOnly: true,
         secure: process.env.NODE_ENV == "production",
         sameSite: "lax"
-    }
+    };
+}
 
-    res.clearCookie("access_token", { ...paramCookie, path: "/" })
-    res.clearCookie("refresh_token", { ...paramCookie, path: "/user/check/token" })
+// Limpa cookies de sessão
+export function clearSessionCookies(res) {
+
+    const base = baseOptions();
+
+    res.clearCookie("access_token", { ...base, path: "/" });
+    res.clearCookie("refresh_token", { ...base, path: REFRESH_COOKIE_PATH });
+    res.clearCookie("refresh_token", { ...base, path: LEGACY_REFRESH_COOKIE_PATH });
 }
 
 // Adiciona cookies
-export function setSessionCookies(access_token, refresh_token, remember, res) {
+// maxAgeMs: duração dos cookies quando "remember" está ativo (padrão 5 dias, ou o tempo que resta da sessão)
+export function setSessionCookies(access_token, refresh_token, remember, res, maxAgeMs = REMEMBER_DURATION) {
 
-    // Dados do token
-    const payloadData = JSON.parse(Buffer.from(access_token.split(".")[1], "base64url").toString())
+    const base = baseOptions();
 
-    // Expiração do token
-    const accessMaxAge = 60 * 60 * 1000//Math.max((payloadData.exp - Math.floor(Date.now() / 1000)) * 1000, 0)
+    // Sem "lembrar": o cookie de acesso dura só até o token expirar e não há refresh token
+    if (!remember) {
 
-    // Cookie de acesso
+        const payload = JSON.parse(Buffer.from(access_token.split(".")[1], "base64url").toString());
+
+        const accessMaxAge = Math.max(payload.exp * 1000 - Date.now(), 1000);
+
+        res.cookie("access_token", access_token, {
+            ...base,
+            maxAge: accessMaxAge,
+            path: "/"
+        });
+
+        // Remove refresh token de logins anteriores
+        res.clearCookie("refresh_token", { ...base, path: REFRESH_COOKIE_PATH });
+        res.clearCookie("refresh_token", { ...base, path: LEGACY_REFRESH_COOKIE_PATH });
+
+        return;
+    }
+
+    // Com "lembrar": os dois cookies duram o mesmo tempo, assim o servidor ainda recebe
+    // o token expirado e consegue renová-lo com o refresh token
+    const duration = Math.max(maxAgeMs, 1000);
+
     res.cookie("access_token", access_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV == "production",
-        sameSite: "lax",
-        maxAge: accessMaxAge,
+        ...base,
+        maxAge: duration,
         path: "/"
-    })
+    });
 
-
-    console.log("Access token:", accessMaxAge, "ms")
-    console.log("Access token:", accessMaxAge / 1000, "segundos")
-    console.log("Access token:", accessMaxAge / 60000, "minutos")
-
-    // Remember?
-    if (remember == false || !remember) return;
-
-    // Duração do refresh_token
-    const refreshDuration = 5 * 24 * 60 * 60 * 1000
-
-    // Cookie de renovação do token
     res.cookie("refresh_token", refresh_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV == "production",
-        sameSite: "lax",
-        maxAge: refreshDuration,
-        path: "/user/check/token"
-    })
+        ...base,
+        maxAge: duration,
+        path: REFRESH_COOKIE_PATH
+    });
 
 }
